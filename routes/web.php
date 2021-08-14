@@ -36,3 +36,6 @@ Route::get('/noticias/update', [NoticiaController::class, 'update']);
 
 /* ROTA PARA MOSTRAR O FORMULARIO */
 Route::get('/noticias/delete', [NoticiaController::class, 'delete']);
+
+/*ROTA PARA, salvar para um novo bd*/ 
+Route :: post ('/noticias', [NoticiaController:: class,'store' ]);
