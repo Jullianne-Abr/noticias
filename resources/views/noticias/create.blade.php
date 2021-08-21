@@ -12,7 +12,11 @@
 
     <h4>Cadastro de Notícias</h4>
 
+                <!--multipart/form-data para fazer upload de arquivo-->
+
+                <!--post é uma forma de fazer requisicao e os dados do cabeçalhos sao enviados -->
     <form action="/noticias" method="POST" enctype= "multipart/form-data">
+
     @csrf 
 
 
@@ -33,7 +37,7 @@
             </div>
 
             <div class="form-group">
-                <label for="imagem">Imagem</label>
+            <label for="imagem">Imagem</label>
                 <input type="file" name="imagem">
             </div>
             
@@ -52,7 +56,8 @@
             </div>
             <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
-        </div>
+    <a href="/noticias" class="btn btn-primary">Voltar</a>
+    </div>
         
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>        
