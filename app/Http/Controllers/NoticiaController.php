@@ -1,16 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\Request;
 use App\Models\Noticia;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Http\Requests\NoticiaRequest;
 
 class NoticiaController extends Controller
 {
       public function index(){
-       
-      $noticias= Noticia ::paginate(5);
+       //array $ / /Noticia modulo
+      $noticias= Noticia ::where('status',Noticia::STATUS_ATIVO)->paginate(5);
+      //noticias e o que queres renderizar
       return view('noticias.index',[
          "noticias"=>$noticias
       ]);
@@ -50,20 +51,14 @@ class NoticiaController extends Controller
        return redirect('/noticias')->with('mensagem', 'Registro excluído com sucesso!');
    }
 
-      public function store(Request $request)
+      public function store(NoticiaRequest $request)
      {
+       //Request é uma classe, em letra maiuscula 
       /*visualizar dados do formulario, sexibindo o valor de uma variavel*/
 
       $dados=$request->all();
-   
-      $dados['data_publicacao'] = Carbon::createFromFormat('d/m/Y', $dados['data_publicacao'])->format('Y-m-d');
-      /*acessar data*/
-
-      
-
-      $request->imagem->storeAs ('public',$request->imagem->getClientOriginalName());
-      $dados['imagem']='/storage/' . $request->imagem->getClientOriginalName();
-      Noticia::create($dados);
+      $dados['imagem']=UploadService::upload($request);
+      $noticia= Noticia::create($dados);
 
       return redirect()->back()->with(['mensagem'=>'Registro salvo com sucesso!']);
    }

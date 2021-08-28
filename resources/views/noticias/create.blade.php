@@ -15,6 +15,17 @@
                 <!--multipart/form-data para fazer upload de arquivo-->
 
                 <!--post é uma forma de fazer requisicao e os dados do cabeçalhos sao enviados -->
+                @if($errors->any())
+        <div class="alert alert-danger">
+            <p><strong>Erro ao realizar esta operação</strong></p>
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="/noticias" method="POST" enctype= "multipart/form-data">
 
     @csrf 
