@@ -2,11 +2,11 @@
 namespace App\Services;
 class UploadService//metodo estatico
 {
-    public function upload($request)
+    public static function upload($request)
     {
-        $nomeImagem= "imagem.jpg";
+        $nomeImagem= date('YmdHis') . mt_rand(0,9999).".jpg"; //para fazer o nome randomico 
         $pathImage= $request->imagem->storeAs ('public',$nomeImagem);
-        return '/storage'.$nomeImagem;
+        return '/storage/'.$nomeImagem;
     }
 
 }

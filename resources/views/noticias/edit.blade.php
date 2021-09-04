@@ -76,7 +76,15 @@
 
             <button type="submit" class="btn btn-success">Salvar</button>
             <a href="/noticias" class="btn btn-danger" >Voltar</a>
-
+        <p>
+        <h4>Comentários</h4>
+        @foreach ($noticia->comentarios as $comentario)
+        <div >
+        {{ $comentario->conteudo }}
+        <p class="text-muted">Criado em: {{ $comentario->created_at->format('d/m/Y H:i') }}</p>
+        </div>
+        @endforeach
+        </p>
         </form>
 
         

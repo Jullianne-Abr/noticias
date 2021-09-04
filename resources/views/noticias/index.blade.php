@@ -24,10 +24,10 @@
       <td> 
       <a href="/noticias/{{$noticia->id}}/edit" class="btn btn-dark" >Editar</a>
 
-      <form action="/noticias/{{$noticia->id}}" method="POST">
+      <form action="/noticias/{{$noticia->id}}" method="POST" onSubmit="confirmarExclusao(event)">
       @method('DELETE')
       @csrf
-      <button type="submit" class="btn btn-danger">Excluir</button>
+      <button type="submit" class="btn btn-danger" >Excluir</button>
 
       </form>
       </td>

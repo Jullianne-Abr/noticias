@@ -20,10 +20,16 @@ class Noticia extends Model
         }
                 return "Inativo";
         } //é this pq está dentro de uma classe, e nao sabe qual vai ser o nome da classe
-        public function setDataPublicaoAttribute($valor)
+        public function setDataPublicacaoAttribute($valor)
         {
             $this ->attributes['data_publicacao'] = \Carbon\Carbon::createFromFormat
             ('d/m/Y', $valor)->format('Y-m-d');
         }
-    }
+        
+        public function comentarios()
+        {
+            return $this-> hasMany(Comentario::class); //$model e a variavel
+        }
+
+}
     

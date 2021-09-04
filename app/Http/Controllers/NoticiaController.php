@@ -6,6 +6,8 @@ use App\Models\Noticia;
 use Carbon\Carbon;
 use App\Http\Requests\NoticiaRequest;
 
+use App\Services\UploadService;
+
 class NoticiaController extends Controller
 {
       public function index(){
@@ -23,38 +25,31 @@ class NoticiaController extends Controller
         return view('noticias.create');
      }
 
-      public function edit($noticia){
-      $noticia=Noticia::findOrFail($noticia);
+      public function edit(Noticia $noticia){ //tipando a variavel para Noticia 
       return view('noticias.edit', //enviando noticia do controller para a view
       ['noticia'=>$noticia]);
    }
 
-      public function update($noticia, Request $request)
+      public function update(Noticia $noticia, Request $request)
    {  //para acessar a informacao dos bancos de dados, utiliza-se a model Noticia
-       $noticia = Noticia::findOrFail($noticia);
        $dados = $request->all();
-       $dados['data_publicacao'] = Carbon::createFromFormat("d/m/Y", $dados['data_publicacao'])->format("Y-m-d");
-       if ($request->imagem) {
-           $request->imagem->storeAs('public', $request->imagem->getClientOriginalName());
-           $dados['imagem'] = '/storage/' . $request->imagem->getClientOriginalName();
-       }
        $noticia->update($dados);
        
-       return redirect()->back()->with('mensagem', 'Registro atualizado com sucesso!');
+       return redirect()->back()->with(['mensagem'=> 'Registro atualizado com sucesso!']);
    }
 
-      public function delete($noticia)
+      public function delete(Noticia $noticia)
    {
-       $noticia = Noticia::findOrFail($noticia);
+       //$noticia = Noticia::findOrFail($noticia);
        $noticia->delete();
 
        return redirect('/noticias')->with('mensagem', 'Registro excluído com sucesso!');
-   }
+   } 
 
       public function store(NoticiaRequest $request)
      {
        //Request é uma classe, em letra maiuscula 
-      /*visualizar dados do formulario, sexibindo o valor de uma variavel*/
+      /*visualizar dados do formulario, exibindo o valor de uma variavel*/
 
       $dados=$request->all();
       $dados['imagem']=UploadService::upload($request);
@@ -62,8 +57,8 @@ class NoticiaController extends Controller
 
       return redirect()->back()->with(['mensagem'=>'Registro salvo com sucesso!']);
    }
-   public function destroy($noticia){
-      $noticia= Noticia::find($noticia);
+   public function destroy(Noticia $noticia){
+
       $noticia->delete();
 
       return redirect()->back()
