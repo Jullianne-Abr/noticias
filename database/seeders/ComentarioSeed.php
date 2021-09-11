@@ -15,8 +15,12 @@ class ComentarioSeed extends Seeder
     public function run()
     {
         Comentario::create([
-            'conteudo'=> 'algo',
+            'conteudo'=> 'uhuu',
             'noticia_id'=>33
+        ]);
+        Comentario::create([
+            'conteudo'=> 'teste',
+            'noticia_id'=>35
         ]);
     }
 }

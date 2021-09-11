@@ -4,15 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
-class Comentario extends Model
+class NoticiaCategoria extends Model
 {
-    
     use HasFactory;
-    public function noticia()
-    {
-        return $this->belongsTo(Noticia::class);
-    }
+    protected $table ='noticias_categorias';
 }
-

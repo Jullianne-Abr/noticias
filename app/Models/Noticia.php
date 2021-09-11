@@ -30,6 +30,9 @@ class Noticia extends Model
         {
             return $this-> hasMany(Comentario::class); //$model e a variavel
         }
-
+        public function categorias()
+        {
+            return $this-> belongsToMany(Categoria::class, 'noticias_categorias'); //$model e a variavel
+        }
 }
     

@@ -77,11 +77,20 @@
             <button type="submit" class="btn btn-success">Salvar</button>
             <a href="/noticias" class="btn btn-danger" >Voltar</a>
         <p>
-        <h4>Comentários</h4>
+        <h5>Comentários</h5>
         @foreach ($noticia->comentarios as $comentario)
         <div >
         {{ $comentario->conteudo }}
-        <p class="text-muted">Criado em: {{ $comentario->created_at->format('d/m/Y H:i') }}</p>
+        <p class="text-muted">Comentário realizado em: {{ $comentario->created_at->format('d/m/Y H:i') }}</p>
+        </div>
+        @endforeach
+        </p>
+<br>
+        <h5>Categorias</h5>
+        <p>
+        @foreach ($noticia->categorias as $categoria) <!--eh no singular pq dentro do foreach é singular-->
+        <div >
+        {{ $categoria->titulo }}
         </div>
         @endforeach
         </p>
