@@ -13,3 +13,5 @@ class Categoria extends Model
         return $this->belongsToMany(Noticia::class, 'noticias_categorias');
     }
 }
+// event.preventDefault
+//Model::

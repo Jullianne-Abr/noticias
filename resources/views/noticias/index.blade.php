@@ -1,52 +1,63 @@
-<x-template titulo="Titulo da Pagina">
-<div class="container pt-5">
-    <h3>Listagem de notícias</h3>
-    <a href="/noticias/create" class="btn btn-primary" >Nova noticia </a>
-    @if(session()->has('mensagem'))
+
+@extends('adminlte::page')
+
+@section('title', 'Notícias')
+
+@section('content_header')
+<h1 class="m-0 text-dark"><i class="fas fa-folder-open"></i> Notícias
+    <small class="text-muted">- Principal</small>
+</h1>
+@stop
+
+@section('content')
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">
+            Notícias
+        </h3>
+    </div>
+
+    <div class="card-body">
+        @if(session()->has('mensagem'))
             <div class="alert alert-success">
                 {{ session()->get('mensagem') }}
             </div>
-    @endif     
+        @endif
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Ações</th>
-      <th scope="col">Título</th>
-      <th scope="col">Imagem</th>
-      <th scope="col">Data da publicação</th>
-      <th scope="col">Status</th>
-    </tr>
-  </thead>
-  <tbody>
-      @foreach ($noticias as $noticia)
-      <tr>
-      <td> 
-      <a href="/noticias/{{$noticia->id}}/edit" class="btn btn-dark" >Editar</a>
+        <a href="/noticias/create" class="btn btn-primary mb-5">Nova Notícia</a>
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Ações</th>
+                    <th>Título</th>
+                    <th>Status</th>
+                    <th>Data Publicação</th>
+                    <th>Imagem</th>
+                </tr>
+            </thead>
 
-      <form action="/noticias/{{$noticia->id}}" method="POST" onSubmit="confirmarExclusao(event)">
-      @method('DELETE')
-      @csrf
-      <button type="submit" class="btn btn-danger" >Excluir</button>
-
-      </form>
-      </td>
-      <td>{{$noticia->titulo}}</td>
-      <td>
-        <img src="{{$noticia->imagem}}" height="40px">
-      </td>
-      <td>{{$noticia->data_publicacao->format('d/m/Y')}}</td>
-
-      <td>
-      {{$noticia->status_formatado}}
-      </td>
-      </tr>
-      @endforeach
-
-  </tbody>
-</table>
-
-{{$noticias->links() }} <!--mostrar os dados-->
-
+            <tbody>
+                @foreach ($noticias as $noticia)
+                    <tr>
+                        <td>
+                            <a href="/noticias/{{ $noticia->id }}/edit" class="btn btn-primary btn-sm">Editar</a>
+                            <form action="/noticias/{{ $noticia->id }}" class="d-inline-block" method="POST" onSubmit="confirmarExclusao(event)">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger">Excluir</button>
+                            </form>
+                        </td>
+                        <td>{{ $noticia->titulo }}</td>
+                        <td>{{ $noticia->status_formatado }}</td>
+                        <td>{{ $noticia->data_publicacao->format("d/m/Y") }}</td>
+                        <td><img src="{{ $noticia->imagem}}" height="40px"></td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        
+        {{ $noticias->links() }}
+    </div>
 </div>
-</x-template>
+@stop

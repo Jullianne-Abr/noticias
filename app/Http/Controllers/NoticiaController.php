@@ -22,11 +22,11 @@ class NoticiaController extends Controller
     }
 
       public function create(){
-        return view('noticias.create');
+        return view('noticias.form'); //verificando se a variavel foi passada
      }
 
       public function edit(Noticia $noticia){ //tipando a variavel para Noticia 
-      return view('noticias.edit', //enviando noticia do controller para a view
+      return view('noticias.form', //enviando noticia do controller para a view
       ['noticia'=>$noticia]);
    }
 

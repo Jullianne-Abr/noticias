@@ -1,7 +1,11 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\NoticiaController; /* DESSA FORMA EVITA USAR TODA A ROTA DENTRO 
+use App\Http\Controllers\NoticiaController;
+
+
+/* DESSA FORMA EVITA USAR TODA A ROTA DENTRO 
 DA ROUTE PASSANDO SOMENTE O NOME DO ARQUIVO */
 
 /*
@@ -50,6 +54,13 @@ Route::get('/', function () {
 
 /*para redução de quantidade de rotas*/ 
 
-Route::resource('noticias', NoticiaController::class);
+Auth::routes();
 
+Route::get('/', function () {
+    return redirect('/home');
+});
 
+Route::middleware('auth')->group(function() {
+    Route::resource('noticias', NoticiaController::class);
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
